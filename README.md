@@ -1,6 +1,6 @@
 # SchoolHub
-## overview
-preview: https://www.youtube.com/watch?v=QshT_inJXpQ
+## preview
+https://www.youtube.com/watch?v=QshT_inJXpQ
 
 ## Distinctiveness and Complexity
 This project is distinct from all other projects done during the course. The idea of this website is to serve as a comprehensive platform that brings together students and teachers, offering a variety of features, such as: forums for the participants of each course; grading system available for teachers; posts for the courses(regular posts and assignment type of post, where the students can submit their work as files) and possibility to join new courses available and leave them and even creating new courses. I wanted to make a website where you can have direct acess to communities focused on education. Furthermore, the website is responsive for multiple screensizes and mobile responsive. It brings together some features that are simmiliar to other projects, but I tried to make them as distinct as possible and also writing the code almost completly from scratch.
