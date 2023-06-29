@@ -1,0 +1,21 @@
+{% extends "layout.html" %} {% load static %} {% block body %}
+<div class="course-body">
+	{% if error %}
+	<div class="alert alert-danger" role="alert">{{error}}</div>
+	{% endif %}
+	<!-- student list display -->
+	<div class="course-students card w-auto">
+		<a class="card-title m-2 font-weight-bold" id="info-title">Courses available</a>
+
+		<div class="list-group">
+			{% for course in courses %}
+			<div>
+				<a class="list-group-item hover" href="{% url 'courseJoin' course_id=course.id %}">{{course.subject}}</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<!---->
+</div>
+
+{% endblock %}

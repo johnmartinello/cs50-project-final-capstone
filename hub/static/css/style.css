@@ -1,0 +1,88 @@
+.page-wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	height: 100%;
+	font-family: sans-serif;
+}
+#content {
+	font-family: sans-serif;
+	overflow-x: auto;
+	overflow-y: auto;
+}
+#menuButton {
+	width: 7vh;
+	height: 5vh;
+}
+.navbar-brand > a {
+	font-size: 30px;
+	color: black;
+}
+.navbar-brand > a :hover {
+	color: black;
+}
+#sideNav {
+	margin-top: 80px;
+	height: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 0;
+	position: fixed;
+	transition: 0.5s;
+	white-space: nowrap;
+	left: -35px;
+}
+.card-body {
+	display: inline-flex;
+	flex: 1 1 auto;
+}
+.card {
+	width: 25vh;
+	min-width: 25vh;
+	border-radius: 15px;
+	height: auto;
+	overflow-x: auto;
+}
+
+.card-header {
+	background-color: lightblue;
+}
+.card-title {
+	font-size: larger;
+	color: black;
+}
+.card-title:hover {
+	color: black;
+}
+
+@media (max-width: 1280px) {
+	#sideNav {
+		overflow-x: hidden;
+		float: left;
+	}
+	#content{
+		display: flex;
+		height:auto;
+	}
+	.card{
+		width:100%;
+	}
+	.card-body{
+		align-items: center;
+		flex-direction: column;
+		
+	}
+	
+}
+.list-group-item {
+	border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.container-sm {
+	margin-top: 80px;
+	margin-left: 0;
+	height: calc(100vh - 80px);
+	padding: 8px 16px;
+	width: auto;
+	position: relative;
+	transition: margin-left 0.5s;
+}

@@ -1,0 +1,47 @@
+{% extends "layout.html" %} {% load static %} {% block body %} {% if user != course_id.professor %}
+<div class="card m-1 w-auto">
+	<h3 class="course-overview m-1">{{post.title}}</h3>
+	<a class="ml-1" style="color: grey">{{course_id.professor}} | {{post.timestamp}}</a>
+	<a class="course-overview m-1"> {{post.content}}</a>
+</div>
+
+<div class="card float-right m-1 w-auto" id="course-info" style="width: 18rem">
+
+	<!--assignment answer section-->
+	<h5 class="card-title m-3">Your work</h5>
+	<div class="list-group">
+		{% if assignment.filec %}
+		<a href="{{ assignment.filec.url }}" class="btn btn-link">{{ assignment.filec.name }}</a>
+		<form method="POST" action="{% url 'deleteAssignment' course_id=course_id.id post_id=post.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-light float-right mr-2" id="cancel-button" name="assignment" style="color: grey">Cancel</button>
+        </form>
+        {% else %}
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<p class="p-1">{{ form.filec }}</p>
+			<button type="submit" class="btn btn-secondary float-right">Post</button>
+		</form>
+		{% endif %}
+	</div>
+	<!---->
+</div>
+{% endif %}
+
+
+<!--students assignments (view only for the professor)-->
+{% if user == course_id.professor %}
+<h2>Uploads</h2>
+{% for assign in assignment %}
+<div class="post">
+	<div>
+		<a class="font-weight-bold m-1">{{ assign.student }}</a>
+		<br />
+		<a class="m-1" style="color: grey">{{assign.timestamp}}</a>
+	</div>
+	<a href="{{ assignment.filec.url }}" class="btn btn-link">{{ assign.filec.name }}</a>
+</div>
+{% endfor %} {% endif %}
+<!---->
+
+{% endblock %}

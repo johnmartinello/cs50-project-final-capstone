@@ -1,0 +1,32 @@
+{% extends "layout.html" %} {% load static %} {% block body %}
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">Cod.</th>
+			<th scope="col">Course</th>
+			<th scope="col">Final Grade</th>
+			<th scope="col">Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for course in courses %}
+		<tr>
+			<td>{{ course.code }}</td>
+			<td>{{ course.subject }}</td>
+			{% for grade in grades %} 
+			{% if grade.course == course and grade.student == user %}
+			<td>{{ grade.grade }}</td>
+			{% if grade.is_failed %}
+			<td style="color: red">Reproved</td>
+			{% else %}
+			<td style="color: green">Aproved</td>
+			{% endif %} {% else %}
+			
+
+			{% endif %} {% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

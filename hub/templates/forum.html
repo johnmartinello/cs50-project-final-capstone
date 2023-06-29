@@ -1,0 +1,37 @@
+{% extends "layout.html" %} {% load static %} {% block body %}
+<div class="course-body">
+	<div id="course-header">
+		<a href="{% url 'course' id=course.id %}"><</a>
+		<a>{{course.code}} - {{course.subject}}: Forum</a>
+	</div>
+
+	{% if user.is_authenticated %}
+	<!--form section-->
+	<div class="card" id="course-forum">
+		<form action="{% url 'courseForum' id=course.id %}" method="POST">
+			{% csrf_token %}
+			<div id="forum-post">
+				<input type="text" class="form-control" name="addComment" placeholder="Write anything you want to say" />
+				<button style="margin-bottom: 10px" type="submit" class="btn btn-secondary">Post</button>
+			</div>
+		</form>
+		{% endif %}
+		<!---->
+
+		<!--posts display-->
+		<div class="list-group">
+			{% for comment in comments%}
+			<div>
+				{% if comment.creator == course.professor %}
+				<a class="forum-messages"><b>{{comment.creator}} (professor): </b>{{comment.content}}</a>
+				{% else %}
+				<a class="forum-messages"><b>{{comment.creator}}: </b>{{comment.content}}</a>
+				{% endif %}
+				<a class="float-md-right" style="color:grey">{{comment.timestamp}}</a>
+			</div>
+			{% endfor %}
+		</div>
+		<!---->
+	</div>
+</div>
+{% endblock %}

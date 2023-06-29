@@ -1,0 +1,104 @@
+{% extends "layout.html" %} {% load static %} {% block body %}
+{% if sucess %}
+<div class="alert alert-success" role="alert">{{sucess}}</div>
+{% endif %}
+<div class="course-body">
+	<div id="course-header">
+		<a>{{course.code}} - {{course.subject}}</a>
+		<a class="btn btn-danger" href=" {% url 'courseLeave' course_id=course.id%}" style="color:white;float: right;">Leave course</a>
+	</div>
+
+	<!--side menu-->
+	<div class="card" id="course-info" style="width: 18rem">
+		<h5 class="card-title m-3">Menu</h5>
+		<div class="list-group">
+			<a class="list-group-item hover"> <b>Professor:</b> {{course.professor}}</a>
+			{% if user == course.professor %}
+			<a class="list-group-item hover" href="{% url 'assignGrades' course_id=course.id %}">Assign grades</a>
+			{% endif %}
+			<a class="list-group-item hover" href="{% url 'courseStudents' id=course.id %}">Students</a>
+			<a class="list-group-item hover" href="{% url 'courseForum' id=course.id %}">Class forum</a>
+		</div>
+	</div>
+	<!---->
+
+	<div class="card w-auto">
+		<a class="course-overview m-1"> <b>Overview:</b> {{course.program}}</a>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-lg-9" id="course-posts">
+
+				<!-- course pre-post section -->
+				<div class="h-auto m-3" id="pre-post" style="color: grey; display: block">
+					<a class="form-control"> Create a new post</a>
+				</div>
+				<!---->
+
+				<!-- course Post form section -->
+				<div class="card mt-3" id="professor-post" style="display: none">
+					<div id="professor-post">
+						<form action="{% url 'course' id=course.id %}" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="form-group">
+								<textarea class="form-control" rows="5" placeholder="Write a message for your class" name="addPost"></textarea>
+							</div>
+							{% if course.professor.id == user.id %}
+							<div class="form-check ml-3">
+								<input type="checkbox" name="checkbox" class="form-check-input" />
+								<label class="form-check-label">Assignment</label>
+							</div>
+							{% endif %}
+							<br />
+							<p>{{form.filec}}</p>
+							<button type="submit" class="btn btn-secondary float-right">Post</button>
+							<a class="btn btn-light float-right mr-2" id="cancel-button" style="color: grey">Cancel</a>
+						</form>
+					</div>
+				</div>
+				<!---->
+
+				<!--post section-->
+				{% for post in posts %}
+				<!--assignment post-->
+				{% if post.assignment == True %}
+				<div class="post assignment" data-link="{% url 'assignment' course.id post.id %}">
+					<a class="font-weight-bold p-1">{{ post.title }}</a>
+					<br />
+					<a class="p-1" style="color: grey">{{post.creator}} (prof.)</a>
+					<a class="float-md-right" style="color: grey">{{ post.timestamp }}</a>
+				</div>
+				{% else %}
+				<!---->
+
+				<!--regular post-->
+				<div class="post">
+					<div>
+						<a class="font-weight-bold p-1">{{ post.title }}</a>
+						<br />
+						{% if post.creator == course.professor %}
+						<a class="p-1" style="color: grey">{{post.creator}} (prof.)</a>
+						{% else %}
+						<a class="p-1" style="color: grey">{{post.creator}} (student)</a>
+						{% endif %}
+						<a class="float-md-right" style="color: grey">{{post.timestamp}}</a>
+					</div>
+					<div class="post-content m-1">
+						<a>{{post.content}}</a>
+					</div>
+					{% if post.filec %}
+					<a class="m-1" href="{{ post.filec.url }}" target="_blank">{{post.filec.name}}</a>
+					{% endif %}
+				</div>
+				{% endif %} {% endfor %}
+				<!---->
+			</div>
+
+			<div class="col"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "layout.html" %} {% load static %} {% block body %}
+<h2>Create new course</h2>
+
+<div class="card w-auto p-3">
+	<form method="POST">
+        {% csrf_token %}
+		<div class="form-row">
+            <div class="col">
+                <label>Subject name</label>
+                <input name="subject" type="text" class="form-control" placeholder="Write the name of the subject">
+            </div>
+            <div class="col">
+                <label>Code</label>
+                <input name="code" type="text" class="form-control" placeholder="Write the code of the course">
+            </div>
+            <div class="col">
+                <label>Level</label>
+                <input name="level" type="text"  class="form-control" placeholder="Write which level is this course recomended for. E.g undergraduate">
+            </div>
+		</div>
+		<div class="form-group">
+			<textarea name="program" class="form-control mt-3" id="exampleFormControlTextarea1" rows="3" placeholder="Write the program of the subject"></textarea>
+		</div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+{% endblock %}
